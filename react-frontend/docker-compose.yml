@@ -1,0 +1,9 @@
+services:
+  react-frontend:
+    build: .
+    container_name: cons-react-dev
+    ports:
+      - "3001:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules

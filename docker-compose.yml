@@ -1,0 +1,33 @@
+services:
+  laravel-backend:
+    build: ./laravel-backend
+    container_name: con-laravel-backend
+    volumes:
+      - ./laravel-backend:/var/www/html
+    depends_on:
+      - mysql-db
+
+  nginx:
+    image: nginx:latest
+    container_name: con-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./laravel-backend:/var/www/html
+    depends_on:
+      - laravel-backend
+  mysql-db:
+    image: mysql:8.0
+    container_name: con-mysql8
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: laravel_backend_demo
+      MYSQL_USER: laravel_app
+      MYSQL_PASSWORD: 12345678
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+volumes:
+  mysql-data:
