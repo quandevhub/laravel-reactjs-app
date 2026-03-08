@@ -1,11 +1,12 @@
 services:
   laravel-backend:
-    build: ./laravel-backend
+    build: .
     container_name: con-laravel-backend
     volumes:
-      - ./laravel-backend:/var/www/html
+      - .:/var/www
     depends_on:
       - mysql-db
+    restart: always
 
   nginx:
     image: nginx:latest
@@ -13,10 +14,12 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./laravel-backend:/var/www/html
+      - ../nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www
+      - ../react-frontend/dist:/usr/share/nginx/html
     depends_on:
       - laravel-backend
+    restart: always
   mysql-db:
     image: mysql:8.0
     container_name: con-mysql8
