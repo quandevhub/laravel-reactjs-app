@@ -1,5 +1,6 @@
 services:
   laravel-backend:
+    image: laravel-backend
     build: .
     container_name: con-laravel-backend
     volumes:
@@ -34,3 +35,4 @@ services:
       - mysql-data:/var/lib/mysql
 volumes:
   mysql-data:
+    name: mysql-data

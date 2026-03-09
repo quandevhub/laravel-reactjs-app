@@ -1,7 +1,0 @@
-services:
-  react-frontend:
-    build: .
-    container_name: cons-react-dev
-    ports:
-      - "3001:80"
-    restart: always
